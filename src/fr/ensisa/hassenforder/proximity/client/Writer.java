@@ -11,5 +11,4 @@ public class Writer extends BasicAbstractWriter {
 	public Writer(OutputStream outputStream) {
 		super (outputStream);
 	}
-
 }

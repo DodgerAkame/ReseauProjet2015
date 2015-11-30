@@ -1,6 +1,8 @@
 package fr.ensisa.hassenforder.proximity.client;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.List;
 
@@ -19,8 +21,19 @@ public class SessionClient {
 	public User connect (String name) {
 		try {
 			if (true) throw new IOException ("not yet implemented");
-			return null;
+			
+			//Faire une socket
+			Writer writer = new Writer(connection.getOutputStream());
+			writer.send();
+			
+			Reader reader = new Reader(connection.getInputStream());
+			reader.receive();
+			
+			User user;
+			
+			return user;
 		} catch (IOException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
