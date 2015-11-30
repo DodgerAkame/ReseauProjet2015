@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Document {
 
-	private Socket socket;
+    private Socket socket;
     private SessionClient session;
     private User me;
     private List<User> others;

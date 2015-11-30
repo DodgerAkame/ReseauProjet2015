@@ -12,9 +12,6 @@ import fr.ensisa.hassenforder.proximity.model.Mode;
 
 public class Reader extends BasicAbstractReader {
 
-	private final int REP_LOGIN = 1;
-	private final int REP_USER = 2;
-	private final int REP_USERS = 3;
 	
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -24,12 +21,14 @@ public class Reader extends BasicAbstractReader {
 		type = readInt ();
 		switch (type) {
 			case 0: break;
-			case REP_LOGIN : break;
-			case REP_USER : break;
-			case REP_USERS : break;
 			default:  break;
 		}
 		
 	}
+        
+        @Override
+        public void getType(){
+            
+        }
 
 }

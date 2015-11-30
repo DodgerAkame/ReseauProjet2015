@@ -9,6 +9,7 @@ import java.util.List;
 import fr.ensisa.hassenforder.network.Protocol;
 import fr.ensisa.hassenforder.proximity.model.Mode;
 import fr.ensisa.hassenforder.proximity.model.User;
+import java.util.Iterator;
 
 public class SessionClient {
 
@@ -24,13 +25,18 @@ public class SessionClient {
 			
 			//Faire une socket
 			Writer writer = new Writer(connection.getOutputStream());
-			writer.send();
+			writer.requestLogin(name);
+                        writer.send();
 			
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
 			
 			User user;
+                        
+                        //Utiliser un iterateur pour parcourir la liste
 			
+                        
+                        
 			return user;
 		} catch (IOException e) {
 			e.printStackTrace();
