@@ -43,7 +43,7 @@ public class SessionServer {
 							mode = 0;
 						}else mode = 2;
 						
-						writer.estConnect(/*nom par un getstring reader.getString()*/)
+						writer.estConnect(x,y,mode,radius,document.doGetState(name).getPreferences());
 						
 					}
 						 
