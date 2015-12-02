@@ -20,5 +20,10 @@ public class Reader extends BasicAbstractReader {
 			break;
 		}
 	}
+
+	public String getString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

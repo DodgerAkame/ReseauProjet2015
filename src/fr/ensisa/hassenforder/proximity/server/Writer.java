@@ -15,4 +15,23 @@ public class Writer extends BasicAbstractWriter {
 		super (outputStream);
 	}
 
+	public void error() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void estConnect(int x, int y, int mode, int radius, Map<String, Preference> preferences) {
+		// TODO Auto-generated method stub
+		int size = preferences.size();
+		for (int i =0; i<size ; i++){
+			preferences.get(i).getName();
+			preferences.get(i).getLevel();
+			preferences.get(i).isVisibility();
+			
+		}
+		
+	}
+
+
+
 }
