@@ -21,13 +21,13 @@ public class SessionClient {
 
 	public User connect (String name) {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (!connection.isConnected()) throw new IOException ("No Socket");
 			
 			//Faire une socket
 			Writer writer = new Writer(connection.getOutputStream());
 			writer.requestLogin(name);
                         writer.send();
-			
+                        
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
 			
@@ -45,13 +45,18 @@ public class SessionClient {
 	}
 
 	public void disconnect () {
-		connection = null;
+            connection = null;
 	}
 
 	public User getState(String name) {
 		try {
-			if (true) throw new IOException ("not yet implemented");
-			return null;
+			if (!connection.isConnected()) throw new IOException ("not yet implemented");
+                        User user;
+                        
+                        Writer writer = new Writer(connection.getOutputStream());
+                        
+                        Reader reader = new Reader(connection.getInputStream());
+			return user;
 		} catch (IOException e) {
 			return null;
 		}
@@ -60,7 +65,11 @@ public class SessionClient {
 	public List<User> findNear(String name) {
 		try {
 			if (true) throw new IOException ("not yet implemented");
-			return null;
+                        
+                        List<User> users;
+                        
+                        
+			return users;
 		} catch (IOException e) {
 			return null;
 		}
@@ -69,7 +78,15 @@ public class SessionClient {
 	public boolean changeMode (String name, Mode mode) {
 		try {
 			if (true) throw new IOException ("not yet implemented");
-			return false;
+			
+                        Writer writer = new Writer(connection.getOutputStream());
+                        writer.;
+                        writer.send();
+                        
+                        Reader reader = new Reader(connection.getInputStream());
+                        reader.receive();
+                        
+                        return true;
 		} catch (IOException e) {
 			return false;
 		}
@@ -78,7 +95,15 @@ public class SessionClient {
 	public boolean move(String name, int x, int y) {
 		try {
 			if (true) throw new IOException ("not yet implemented");
-			return false;
+                        
+                        Writer writer = new Writer(connection.getOutputStream());
+                        writer.updateMove(x, y);
+                        writer.send();
+                        
+                        Reader reader = new Reader(connection.getInputStream());
+                        reader.receive();
+                        
+			return true;
 		} catch (IOException e) {
 			return false;
 		}
@@ -87,7 +112,15 @@ public class SessionClient {
 	public boolean changeRadius(String name, int radius) {
 		try {
 			if (true) throw new IOException ("not yet implemented");
-			return false;
+                        
+                        Writer writer = new Writer(connection.getOutputStream());
+                        writer.updateRadius(radius);
+                        writer.send();
+                        
+                        Reader reader = new Reader(connection.getInputStream());
+                        reader.receive();
+                        
+			return true;
 		} catch (IOException e) {
 			return false;
 		}
@@ -96,7 +129,15 @@ public class SessionClient {
 	public boolean changePreferenceLevel(String name, String preference, int value) {
 		try {
 			if (true) throw new IOException ("not yet implemented");
-			return false;
+                        
+                        Writer writer = new Writer(connection.getOutputStream());
+                        writer.updatePreferenceLevel(preference, value);
+                        writer.send();
+                        
+                        Reader reader = new Reader(connection.getInputStream());
+                        reader.receive();
+                        
+			return true;
 		} catch (IOException e) {
 			return false;
 		}
@@ -105,7 +146,17 @@ public class SessionClient {
 	public boolean changePreferenceVisibility(String name, String preference, boolean value) {
 		try {
 			if (true) throw new IOException ("not yet implemented");
-			return false;
+                        
+                        
+                        
+                        Writer writer = new Writer(connection.getOutputStream());
+                        writer.;
+                        writer.send();
+                        
+                        Reader reader = new Reader(connection.getInputStream());
+                        reader.receive();
+                        
+			return true;
 		} catch (IOException e) {
 			return false;
 		}

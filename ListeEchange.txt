@@ -1,0 +1,42 @@
+﻿Echanges :
+
+Connexion
+	GET_LOGIN name(String)
+GET_LOGIN = 
+
+
+
+
+Recherche selon préférences
+	REQ_PREF name(String) level(Int)
+REQ_PREF = 
+
+
+
+
+
+Mise à jour des coordonnées
+	REQ_MOV x(Int) y(Int)
+REQ_MOV = 
+
+
+
+
+
+Mise à jour du rayon de recherche
+	REQ_RAD rad(Int) 
+REQ_RAD = 
+
+
+
+
+Obtenir les informations d'un personne [via clic sur l'IHM]
+	GET_USER x(Int) y(Int)
+GET_USER = 
+
+
+
+
+
+Mise à jour des propriétés
+	REQ_PROPUP name(String) visibility(boolean) level(Int)
