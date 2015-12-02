@@ -6,12 +6,14 @@ import java.util.List;
 
 import fr.ensisa.hassenforder.network.BasicAbstractReader;
 import fr.ensisa.hassenforder.network.Protocol;
+import fr.ensisa.hassenforder.proximity.model.Mode;
 import fr.ensisa.hassenforder.proximity.model.Preference;
 import fr.ensisa.hassenforder.proximity.model.User;
-import fr.ensisa.hassenforder.proximity.model.Mode;
 
 public class Reader extends BasicAbstractReader {
-
+        
+    
+       
 	
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -20,15 +22,47 @@ public class Reader extends BasicAbstractReader {
 	public void receive() {
 		type = readInt ();
 		switch (type) {
-			case 0: break;
-			default:  break;
+                    case Protocol.REP_KO : break;
+                    case Protocol.REP_LOGIN: readLogin();  break;
+                    case Protocol.REP_USER : readUser(); break;
+                    case Protocol.REP_USERS : readOthers(); break;
+                    default: break;
 		}
 		
 	}
         
-        @Override
-        public void getType(){
+        public User readLogin(){
+            String name = readString();
+            int x = readInt();
+            int y = readInt();
+            int radius = readInt();
+            String modestring = readString();
+            Mode mode = Mode.valueOf(modestring);
             
+            User user = new User(name, x, y, radius, mode);
+            
+            return user;
+        }
+        
+        public User readUser(){
+            String name = readString();
+            int x = readInt();
+            int y = readInt();
+            int radius = readInt();
+            String modestring = readString();
+            Mode mode = Mode.valueOf(modestring);
+            
+            User user = new User(name, x, y, radius, mode);
+            
+            return user;
+        }
+        
+        public List<User> readOthers(){
+            List<User> users;
+            
+          
+            
+            return users;
         }
 
 }

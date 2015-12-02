@@ -1,12 +1,15 @@
 ﻿2/12/2015 - Rémy
 
--Pour l'énumération du mode, le prof m'a dit qu'il fallait définir  un type d'envoi (en ordinal ou en String) --> Je pense le faire en String
+-Pour l'énumération du mode, le prof m'a dit qu'il fallait définir  un type d'envoi (en ordinal ou en String) --> Je pense le faire en String (il faudra faire mode.toString() )
 
 -Il faut définir la classe User dans le protocole
 
 -Ajout de la liste des échanges
 
--ATTENTION : Bien gérer l'état interne (j'ai codé comme si c'était dans le serveur, je crois qu'on avait dit ça)
+-Tout les messages sont décrits dans la classe Protocol
 
+-Il faut que j'adapte le nom des méthodes pour que ça corresponde avec celles du prof
+
+-Je dois aussi régler un problème pour pouvoir obtenir une liste des autres 
 
 **********************************************

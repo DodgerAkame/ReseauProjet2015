@@ -1,5 +1,6 @@
 package fr.ensisa.hassenforder.proximity.client;
 
+import fr.ensisa.hassenforder.network.BasicAbstractReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,25 +22,18 @@ public class SessionClient {
 
 	public User connect (String name) {
 		try {
-			if (!connection.isConnected()) throw new IOException ("No Socket");
-			
-			//Faire une socket
+                    
 			Writer writer = new Writer(connection.getOutputStream());
 			writer.requestLogin(name);
                         writer.send();
                         
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
-			
-			User user;
-                        
-                        //Utiliser un iterateur pour parcourir la liste
-			
-                        
-                        
-			return user;
+	
+                        if (reader.getType() == Protocol.REP_KO) throw new IOException ("Erreur de connexion");
+                        if (reader.getType() == Protocol.REP_USER) return user;
+			return null;
 		} catch (IOException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -80,7 +74,7 @@ public class SessionClient {
 			if (true) throw new IOException ("not yet implemented");
 			
                         Writer writer = new Writer(connection.getOutputStream());
-                        writer.;
+                        writer.updateMode(mode);
                         writer.send();
                         
                         Reader reader = new Reader(connection.getInputStream());
@@ -146,11 +140,9 @@ public class SessionClient {
 	public boolean changePreferenceVisibility(String name, String preference, boolean value) {
 		try {
 			if (true) throw new IOException ("not yet implemented");
-                        
-                        
-                        
+                       
                         Writer writer = new Writer(connection.getOutputStream());
-                        writer.;
+                        writer.updatePreferenceVisibility(preference, value);
                         writer.send();
                         
                         Reader reader = new Reader(connection.getInputStream());
