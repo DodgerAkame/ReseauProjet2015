@@ -22,9 +22,31 @@ public class SessionServer {
 			Writer writer = new Writer (connection.getOutputStream());
 			Reader reader = new Reader (connection.getInputStream());
 			reader.receive ();
+			int x,y,mode,radius;
+			String name = reader.getString();
+			
+			
+			
 			switch (reader.getType ()) {
 			case 0 : return false; // socket closed
-			case 1 : break;
+			case 1 :
+					if(document.doConnect(name)== NULL){
+						writer.error(); // si pas de nom renvoie une erreur
+					}else {
+						x = document.doGetState(name).getX();
+						y = document.doGetState(name).getY();
+						radius = document.doGetState(name).getRadius();
+						if (document.doGetState(name).getMode().equals("VISIBLE")){
+							mode = 1;
+													
+						}else if (document.doGetState(name).getMode().equals("HIDDEN")){
+							mode = 0;
+						}else mode = 2;
+						
+						writer.estConnect(/*nom par un getstring reader.getString()*/)
+						
+					}
+						 
 			default: return false; // connection jammed
 			}
 			writer.send ();
