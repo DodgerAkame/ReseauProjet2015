@@ -8,7 +8,8 @@ public class BasicAbstractReader {
 
 	protected DataInputStream inputStream;
 	protected int type;
-
+	
+	
 	public BasicAbstractReader(InputStream inputStream2) {
 		this.inputStream = new DataInputStream (inputStream2);
 	}

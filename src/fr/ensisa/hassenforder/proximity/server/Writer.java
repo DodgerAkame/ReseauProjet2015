@@ -16,21 +16,34 @@ public class Writer extends BasicAbstractWriter {
 	}
 
 	public void error() {
-		// TODO Auto-generated method stub
+		writeInt(Protocol.REP_KO);
 		
 	}
 
-	public void estConnect(int x, int y, int mode, int radius, Map<String, Preference> preferences) {
-		// TODO Auto-generated method stub
+	public void estConnect(String name,int x, int y, int mode, int radius, Map<String, Preference> preferences) {
+		writeInt(Protocol.REP_LOGIN);
+		writeString(name);
+		writeInt(x);
+		writeInt(y);
+		writeInt(radius);
+		writeInt(mode);
+		
 		int size = preferences.size();
 		for (int i =0; i<size ; i++){
-			preferences.get(i).getName();
-			preferences.get(i).getLevel();
-			preferences.get(i).isVisibility();
-			
+			writeString(preferences.get(i).getName());
+			writeInt(preferences.get(i).getLevel());
+			writeBoolean(preferences.get(i).isVisibility());
+		
 		}
 		
 	}
+
+	public void changeOK() {
+		writeInt(Protocol.REP_OK);
+		
+	}
+
+	
 
 
 

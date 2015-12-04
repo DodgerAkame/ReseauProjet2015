@@ -37,7 +37,7 @@ public class Writer extends BasicAbstractWriter {
 	public void searchNear(String name, int level) {
 		writeInt(Protocol.REQ_PREF);
 		writeString(name);
-		writeInt(level);
+		writeInt(level); //pour le find j'ai juste besoin du nom cf doFind()
 	}
 
 	public void searchOther(int x, int y) {

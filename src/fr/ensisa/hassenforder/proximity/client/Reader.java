@@ -25,7 +25,7 @@ public class Reader extends BasicAbstractReader {
                     case Protocol.REP_KO : break;
                     case Protocol.REP_LOGIN: readLogin();  break;
                     case Protocol.REP_USER : readUser(); break;
-                    case Protocol.REP_USERS : readOthers(); break;
+                   // case Protocol.REP_USERS : readOthers(); break;
                     default: break;
 		}
 		
@@ -36,7 +36,7 @@ public class Reader extends BasicAbstractReader {
             int x = readInt();
             int y = readInt();
             int radius = readInt();
-            String modestring = readString();
+            String modestring = readString(); // le mode je le définie par 3 chiffres 
             Mode mode = Mode.valueOf(modestring);
             
             User user = new User(name, x, y, radius, mode);
@@ -57,12 +57,12 @@ public class Reader extends BasicAbstractReader {
             return user;
         }
         
-        public List<User> readOthers(){
+      /*  public List<User> readOthers(){
             List<User> users;
             
           
             
             return users;
-        }
+        }*/
 
 }

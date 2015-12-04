@@ -22,15 +22,17 @@ public class SessionServer {
 			Writer writer = new Writer (connection.getOutputStream());
 			Reader reader = new Reader (connection.getInputStream());
 			reader.receive ();
-			int x,y,mode,radius;
-			String name = reader.getString();
+			String name = reader.readname();
+			
 			
 			
 			
 			switch (reader.getType ()) {
 			case 0 : return false; // socket closed
-			case 1 :
-					if(document.doConnect(name)== NULL){
+			case Protocol.GET_LOGIN :
+				int x,y,mode,radius;
+				
+					if(document.doConnect(name) == null){
 						writer.error(); // si pas de nom renvoie une erreur
 					}else {
 						x = document.doGetState(name).getX();
@@ -43,13 +45,50 @@ public class SessionServer {
 							mode = 0;
 						}else mode = 2;
 						
-						writer.estConnect(x,y,mode,radius,document.doGetState(name).getPreferences());
+						writer.estConnect(name,x,y,mode,radius,document.doGetState(name).getPreferences());
 						
 					}
-						 
+					
+			case Protocol.REQ_RAD :
+				int rad = reader.readRad();
+				if (rad<0){
+					writer.error();
+				}
+				else {
+					document.doChangeRadius(name,rad);
+				writer.changeOK();
+				}
+				
+			case Protocol.REQ_MOV :
+				int t[] = reader.readMov();
+				if (t[0]<0 || t[1]<0 ){
+					writer.error();
+				}else{
+					document.doMove(name, t[0], t[1]);
+					writer.changeOK();
+				}
+				
+			case Protocol.REQ_PREF :
+				String name1 = reader.readname();
+				if(name1 == null){
+					writer.error();
+				}else {
+					document.doFind(name1);
+					writer.changeOK();
+					}
+			
+			
+				
+				
+				
+				
+				
+				
+				
+					break;	 
 			default: return false; // connection jammed
 			}
-			writer.send ();
+			writer.send();
 			return true;
 		} catch (IOException e) {
 			return false;
