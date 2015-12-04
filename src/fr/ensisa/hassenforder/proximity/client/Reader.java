@@ -36,8 +36,11 @@ public class Reader extends BasicAbstractReader {
             int x = readInt();
             int y = readInt();
             int radius = readInt();
-            String modestring = readString(); // le mode je le définie par 3 chiffres 
-            Mode mode = Mode.valueOf(modestring);
+            int modestring = readInt(); // le mode je le définie par 3 chiffres 
+            Mode mode = null;
+            if (modestring == 1){ mode= Mode.VISIBLE; }
+            else if (modestring == 0){ mode = Mode.HIDDEN;}
+            else{ mode= Mode.OCCUPIED;}
             
             User user = new User(name, x, y, radius, mode);
             

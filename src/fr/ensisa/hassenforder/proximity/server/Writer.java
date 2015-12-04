@@ -43,6 +43,11 @@ public class Writer extends BasicAbstractWriter {
 		
 	}
 
+	public void sendFind() {
+		
+		
+	}
+
 	
 
 

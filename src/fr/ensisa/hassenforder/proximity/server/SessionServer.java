@@ -74,7 +74,7 @@ public class SessionServer {
 					writer.error();
 				}else {
 					document.doFind(name1);
-					writer.changeOK();
+					writer.sendFind();
 					}
 			
 			
