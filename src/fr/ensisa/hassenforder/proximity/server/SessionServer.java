@@ -76,7 +76,7 @@ public class SessionServer {
 					document.doFind(name1);
 					writer.sendFind();
 					}
-			
+
 			
 				
 				

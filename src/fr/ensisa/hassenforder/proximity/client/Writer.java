@@ -39,13 +39,13 @@ public class Writer extends BasicAbstractWriter {
 		writeString(name);
 		writeInt(level); //pour le find j'ai juste besoin du nom cf doFind()
 	}
-
+/* pas possible avec les méthodes implémenté par le prof, c'est interne au client
 	public void searchOther(int x, int y) {
 		writeInt(Protocol.GET_USER);
 		writeInt(x);
 		writeInt(y);
 	}
-
+*/ 
 	public void updatePreferenceVisibility(String hobby, boolean visibility) {
 		writeInt(Protocol.REQ_PROPUPVIS);
 		writeString(hobby);
