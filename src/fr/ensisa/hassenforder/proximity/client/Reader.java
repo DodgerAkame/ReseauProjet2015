@@ -25,7 +25,11 @@ public class Reader extends BasicAbstractReader {
                     case Protocol.REP_KO : break;
                     case Protocol.REP_LOGIN: readLogin();  break;
                     case Protocol.REP_USER : readUser(); break;
+<<<<<<< HEAD
                    // case Protocol.REP_USERS : readOthers(); break;
+=======
+                    case Protocol.REP_USERS : readOthers(readInt()); break;
+>>>>>>> origin/master
                     default: break;
 		}
 		
@@ -57,9 +61,26 @@ public class Reader extends BasicAbstractReader {
             return user;
         }
         
+<<<<<<< HEAD
       /*  public List<User> readOthers(){
             List<User> users;
+=======
+        public List<User> readOthers(int size){
+            List<User> users = null;
+>>>>>>> origin/master
             
+            for (int i =0; i < size; i++){
+                String name = readString();
+                int x = readInt();
+                int y = readInt();
+                int radius = readInt();
+                String modestring = readString();
+                Mode mode = Mode.valueOf(modestring);
+                
+                User temp = new User(name, x, y, radius, mode);
+                
+                users.add(i,temp);
+            }
           
             
             return users;
