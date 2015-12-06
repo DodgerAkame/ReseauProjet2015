@@ -15,7 +15,7 @@ public class Writer extends BasicAbstractWriter {
 	}
 
 	public void send() {
-
+              
 	}
 
 	public void requestLogin(String name) {
@@ -60,7 +60,13 @@ public class Writer extends BasicAbstractWriter {
 
         public void updateMode(Mode mode){
                 writeInt(Protocol.REQ_MODE);
-                writeString(mode.toString());
+                
+                switch(mode){
+                    case OCCUPIED : writeInt(2); break;
+                    case VISIBLE : writeInt(1); break;
+                    case HIDDEN : writeInt(0); break;
+                    default: break;
+                }
         }
         
 }

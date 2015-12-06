@@ -29,7 +29,9 @@ public class SessionClient {
                         
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
-	
+                        
+                        User user = null;
+                        
                         if (reader.getType() == Protocol.REP_KO) throw new IOException ("Erreur de connexion");
                         if (reader.getType() == Protocol.REP_USER) return user;
 			return null;
@@ -45,7 +47,7 @@ public class SessionClient {
 	public User getState(String name) {
 		try {
 			if (!connection.isConnected()) throw new IOException ("not yet implemented");
-                        User user;
+                        User user = null;
                         
                         Writer writer = new Writer(connection.getOutputStream());
                         
@@ -60,7 +62,7 @@ public class SessionClient {
 		try {
 			if (true) throw new IOException ("not yet implemented");
                         
-                        List<User> users;
+                        List<User> users = null;
                         
                         
 			return users;
