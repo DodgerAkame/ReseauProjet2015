@@ -6,7 +6,7 @@ public interface Protocol {
 
 	public static final int PROXIMITY_PORT_ID = 1235;
 
-        public final int  GET_LOGIN = 1;
+        public final int GET_LOGIN = 1;
 	public final int REQ_PREF = 2;
 	public final int REQ_MOV = 3;
 	public final int REQ_RAD = 4;

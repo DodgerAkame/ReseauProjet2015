@@ -33,7 +33,7 @@ public class SessionClient {
                         User user = null;
                         
                         if (reader.getType() == Protocol.REP_KO) throw new IOException ("Erreur de connexion");
-                        if (reader.getType() == Protocol.REP_USER) return user;
+                        if (reader.getType() == Protocol.REP_LOGIN) return user;
 			return null;
 		} catch (IOException e) {
 			return null;
@@ -124,7 +124,7 @@ public class SessionClient {
 
 	public boolean changePreferenceLevel(String name, String preference, int value) {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			
                         
                         Writer writer = new Writer(connection.getOutputStream());
                         writer.updatePreferenceLevel(preference, value);
@@ -133,7 +133,8 @@ public class SessionClient {
                         Reader reader = new Reader(connection.getInputStream());
                         reader.receive();
                         
-			return true;
+                        if (reader.getType() == Protocol.REP_OK) return true;
+			return false;
 		} catch (IOException e) {
 			return false;
 		}
