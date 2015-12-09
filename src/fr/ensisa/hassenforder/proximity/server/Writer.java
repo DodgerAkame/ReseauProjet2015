@@ -29,6 +29,7 @@ public class Writer extends BasicAbstractWriter {
 		writeInt(mode);
 		
 		int size = preferences.size();
+		writeInt(size);
 		for (int i =0; i<size ; i++){
 			writeString(preferences.get(i).getName());
 			writeInt(preferences.get(i).getLevel());
