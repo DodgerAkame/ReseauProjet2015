@@ -29,12 +29,14 @@ public class Writer extends BasicAbstractWriter {
 		writeInt(mode);
 		
 		int size = preferences.size();
+		writeInt(size); //T'avais pas commit cette ligne omg
 		for (int i =0; i<size ; i++){
 			writeString(preferences.get(i).getName());
 			writeInt(preferences.get(i).getLevel());
 			writeBoolean(preferences.get(i).isVisibility());
 		
 		}
+		
 		
 	}
 
@@ -46,6 +48,10 @@ public class Writer extends BasicAbstractWriter {
 	public void sendFind() {
 		
 		
+	}
+	
+	public void send(){
+		super.send();
 	}
 
 	

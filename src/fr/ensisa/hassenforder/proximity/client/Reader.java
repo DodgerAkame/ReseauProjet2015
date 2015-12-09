@@ -1,8 +1,8 @@
 package fr.ensisa.hassenforder.proximity.client;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import fr.ensisa.hassenforder.network.BasicAbstractReader;
 import fr.ensisa.hassenforder.network.Protocol;
@@ -26,6 +26,7 @@ public class Reader extends BasicAbstractReader {
                     case Protocol.REP_LOGIN: readLogin();  break;
                     case Protocol.REP_USER : readUser(); break;
                     case Protocol.REP_USERS : readOthers(readInt()); break;
+                    case 0 : break;
                     default: break;
 		}
 		
@@ -90,5 +91,20 @@ public class Reader extends BasicAbstractReader {
             
             return users;
         }
+       
+       public Map<String,Preference> readPreferences(int size){
+    	   Map<String, Preference> buffer=null;
+    	   Preference pref = null;
+    	   String string;
+    	   
+    	   for (int i=0; i< size; i++){
+    		   string=readString();
+    		   pref.setLevel(readInt());
+    		   pref.setVisibility(readBoolean());
+    		   buffer.put(string,pref);
+    	   }
+    	   
+    	   return buffer;
+       }
 
 }
