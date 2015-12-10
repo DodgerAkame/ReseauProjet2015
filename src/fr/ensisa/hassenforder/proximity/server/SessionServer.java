@@ -23,10 +23,13 @@ public class SessionServer {
 			Reader reader = new Reader(connection.getInputStream());
 						
 			reader.receive();
+<<<<<<< HEAD
 			
 			
+=======
+>>>>>>> c4aec5c1fc670f5d754616eef17b9140d9207846
 			
-			String name = reader.readname();
+			System.out.println("yeah");
 			
 			
 			switch (reader.getType()) {
@@ -36,25 +39,34 @@ public class SessionServer {
 				System.out.println("je suis entré");
 				int x,
 				y,
-				mode,
+				mode = 0,
 				radius;
+<<<<<<< HEAD
 				
 				
 
+=======
+				System.out.println("je suis toujours la");
+				System.out.println("hahy");
+				String name = reader.readname();
+>>>>>>> c4aec5c1fc670f5d754616eef17b9140d9207846
 				if (document.doConnect(name) == null) {
 					writer.error(); // si pas de nom renvoie une erreur
 				} else {
+					System.out.println("r1rrr");
 					x = document.doGetState(name).getX();
 					y = document.doGetState(name).getY();
 					radius = document.doGetState(name).getRadius();
+					System.out.println(document.doGetState(name).getMode());
 					if (document.doGetState(name).getMode().equals("VISIBLE")) {
+						
 						mode = 1;
 
-					} else if (document.doGetState(name).getMode()
-							.equals("HIDDEN")) {
+					} else if (document.doGetState(name).getMode().equals("HIDDEN")) {
 						mode = 0;
-					} else
+					} else if (document.doGetState(name).getMode().equals("OCCUPIED"))
 						mode = 2;
+<<<<<<< HEAD
 					//faire une map
 					Map <String, Preference> buffer = document
 							.doGetState(name).getPreferences();
@@ -62,6 +74,10 @@ public class SessionServer {
 					writer.estConnect(name, x, y, mode, radius, buffer);
 				}
 				
+=======
+					writer.estConnect(name, x, y, mode, radius, document.doGetState(name).getPreferences());
+				}break;
+>>>>>>> c4aec5c1fc670f5d754616eef17b9140d9207846
 
 			/*case Protocol.REQ_RAD:
 				String name1 = reader.readname();
@@ -72,7 +88,7 @@ public class SessionServer {
 				} else {
 					document.doChangeRadius(name1, rad);
 					writer.changeOK();
-				}
+				}*/
 
 			case Protocol.REQ_MOV:
 				String name0 = reader.readname();
@@ -83,8 +99,9 @@ public class SessionServer {
 				} else {
 					document.doMove(name0, t[0], t[1]);
 					writer.changeOK();
-				}
+				}break;
 
+/*
 			case Protocol.REQ_PREF:
 				String name2 = reader.readname();
 				if (name2 == null) {
@@ -93,8 +110,12 @@ public class SessionServer {
 					document.doFind(name2);
 					writer.sendFind();
 				}*/
+<<<<<<< HEAD
 
 				//break;
+=======
+				
+>>>>>>> c4aec5c1fc670f5d754616eef17b9140d9207846
 			/*default:
 				return false; // connection jammed */
 			}
