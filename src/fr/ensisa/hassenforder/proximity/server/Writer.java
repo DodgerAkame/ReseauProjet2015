@@ -23,6 +23,7 @@ public class Writer extends BasicAbstractWriter {
 	public void estConnect(String name,int x, int y, int mode, int radius, Map<String, Preference> preferences) {
 		writeInt(Protocol.REP_LOGIN);
 		writeString(name);
+		System.out.println(name);
 		writeInt(x);
 		writeInt(y);
 		writeInt(radius);

@@ -21,24 +21,26 @@ public class SessionServer {
 		try {
 			Writer writer = new Writer(connection.getOutputStream());
 			Reader reader = new Reader(connection.getInputStream());
+						
+			reader.receive();
+		
+			System.out.println("yeah");	
 			
-			System.out.println("hihi");
+			String name = reader.readname();
+			
 			System.out.println(reader.getType());
-			
-			reader.receive();// probleme le processus s'arrête ici 
-			
-			System.out.println("yeah");
-
-			switch (reader.getType()) {
+			System.out.println(Protocol.GET_LOGIN);
+			switch (reader.getType()) {// probleme le processus s'arrête ici 
 			//case 0:
 			//	return false; // socket closed
 			case Protocol.GET_LOGIN:
-
+				System.out.println("je suis entré");
 				int x,
 				y,
 				mode,
 				radius;
-				String name = reader.readname();
+				System.out.println("je suis toujours la");
+				
 				System.out.println(name);
 				System.out.println("hahy");
 
@@ -62,7 +64,7 @@ public class SessionServer {
 					writer.send();
 				}
 
-			case Protocol.REQ_RAD:
+			/*case Protocol.REQ_RAD:
 				String name1 = reader.readname();
 				System.out.println(name1);
 				int rad = reader.readRad();
@@ -91,11 +93,11 @@ public class SessionServer {
 				} else {
 					document.doFind(name2);
 					writer.sendFind();
-				}
+				}*/
 
 				break;
-			default:
-				return false; // connection jammed
+			/*default:
+				return false; // connection jammed */
 			}
 			writer.send();
 			return true;
