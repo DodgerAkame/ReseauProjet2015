@@ -2,10 +2,10 @@ package fr.ensisa.hassenforder.proximity.server;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.List;
+import java.util.Map;
 
 import fr.ensisa.hassenforder.network.Protocol;
-import fr.ensisa.hassenforder.proximity.model.User;
+import fr.ensisa.hassenforder.proximity.model.Preference;
 
 public class SessionServer {
 
@@ -23,26 +23,23 @@ public class SessionServer {
 			Reader reader = new Reader(connection.getInputStream());
 						
 			reader.receive();
-		
-			System.out.println("yeah");	
+			
+			
 			
 			String name = reader.readname();
 			
-			System.out.println(reader.getType());
-			System.out.println(Protocol.GET_LOGIN);
-			switch (reader.getType()) {// probleme le processus s'arrête ici 
-			//case 0:
-			//	return false; // socket closed
+			
+			switch (reader.getType()) {
+			case 0:
+				return false; // socket closed
 			case Protocol.GET_LOGIN:
 				System.out.println("je suis entré");
 				int x,
 				y,
 				mode,
 				radius;
-				System.out.println("je suis toujours la");
 				
-				System.out.println(name);
-				System.out.println("hahy");
+				
 
 				if (document.doConnect(name) == null) {
 					writer.error(); // si pas de nom renvoie une erreur
@@ -58,11 +55,13 @@ public class SessionServer {
 						mode = 0;
 					} else
 						mode = 2;
-
-					writer.estConnect(name, x, y, mode, radius, document
-							.doGetState(name).getPreferences());
-					writer.send();
+					//faire une map
+					Map <String, Preference> buffer = document
+							.doGetState(name).getPreferences();
+					
+					writer.estConnect(name, x, y, mode, radius, buffer);
 				}
+				
 
 			/*case Protocol.REQ_RAD:
 				String name1 = reader.readname();
@@ -95,7 +94,7 @@ public class SessionServer {
 					writer.sendFind();
 				}*/
 
-				break;
+				//break;
 			/*default:
 				return false; // connection jammed */
 			}

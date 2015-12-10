@@ -19,7 +19,7 @@ public class Reader extends BasicAbstractReader {
 		switch (type) {
 
 		case Protocol.GET_LOGIN :
-			readname();
+			//readname();
 			
 			
 		/*case Protocol.REQ_PREF :
@@ -33,6 +33,8 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.REQ_MODE :
 			
 		case Protocol.REQ_PROPUPLEV :*/
+			break;
+		default:
 			break;
 		}
 	}

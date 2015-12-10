@@ -11,100 +11,111 @@ import fr.ensisa.hassenforder.proximity.model.Preference;
 import fr.ensisa.hassenforder.proximity.model.User;
 
 public class Reader extends BasicAbstractReader {
-        
-    
-       
-	
+
 	public Reader(InputStream inputStream) {
-		super (inputStream);
+		super(inputStream);
 	}
 
 	public void receive() {
-		type = readInt ();
+		type = readInt();
 		switch (type) {
-                    case Protocol.REP_KO : break;
-                    case Protocol.REP_LOGIN: readLogin();  break;
-                    case Protocol.REP_USER : readUser(); break;
-                    case Protocol.REP_USERS : readOthers(readInt()); break;
-                    case 0 : break;
-                    default: break;
+		case Protocol.REP_KO:
+			break;
+		case Protocol.REP_LOGIN:
+			readLogin();
+			break;
+		case Protocol.REP_USER:
+			readUser();
+			break;
+		case Protocol.REP_USERS:
+			readOthers(readInt());
+			break;
+		case 0:
+			break;
+		default:
+			break;
 		}
-		
+
 	}
-        
-        public User readLogin(){
-            String name = readString();
-            int x = readInt();
-            int y = readInt();
-            int radius = readInt();
-            int modeInt = readInt(); 
-            Mode mode = null;
-            if (modeInt == 1){ mode= Mode.VISIBLE; }
-            else if (modeInt == 0){ mode = Mode.HIDDEN;}
-            else{ mode= Mode.OCCUPIED;}
-            
-            User user = new User(name, x, y, radius, mode);
-            
-            return user;
-        }
-        
-        public User readUser(){
-            String name = readString();
-            int x = readInt();
-            int y = readInt();
-            int radius = readInt();
-            int modeInt = readInt(); 
-            Mode mode = null;
-            
-            if (modeInt == 1){ mode= Mode.VISIBLE; }
-            else if (modeInt == 0){ mode = Mode.HIDDEN;}
-            else{ mode= Mode.OCCUPIED;}
-            
-            User user = new User(name, x, y, radius, mode);
-            
-            return user;
-        }
-        
 
-      public List<User> readOthers(){
-            List<User> users = null;
-			return users;
-      }
-      
-       public List<User> readOthers(int size){
-            List<User> users = null;
+	public User readLogin() {
+		String name = readString();
+		int x = readInt();
+		int y = readInt();
+		int radius = readInt();
+		int modeInt = readInt();
+		Mode mode = null;
+		if (modeInt == 1) {
+			mode = Mode.VISIBLE;
+		} else if (modeInt == 0) {
+			mode = Mode.HIDDEN;
+		} else {
+			mode = Mode.OCCUPIED;
+		}
 
-            
-            for (int i =0; i < size; i++){
-                String name = readString();
-                int x = readInt();
-                int y = readInt();
-                int radius = readInt();
-                String modestring = readString();
-                Mode mode = Mode.valueOf(modestring);
-                
-                User temp = new User(name, x, y, radius, mode);
-                
-                users.add(i,temp);
-            }
-          
-            
-            return users;
-        }
-       
-       public Map<String,Preference> readPreferences(int size){
-    	   Map<String, Preference> buffer=null;
-    	   Preference pref = null;
-    	   String string;
-    	   
-    	   for (int i=0; i< size; i++){
-    		   string=readString();
-    		   pref.setLevel(readInt());
-    		   pref.setVisibility(readBoolean());
-    		   buffer.put(string,pref);
-    	   }
-    	   
-    	   return buffer;
-       }
+		User user = new User(name, x, y, radius, mode);
+
+		return user;
+	}
+
+	public User readUser() {
+		String name = readString();
+		int x = readInt();
+		int y = readInt();
+		int radius = readInt();
+		int modeInt = readInt();
+		Mode mode = null;
+
+		if (modeInt == 1) {
+			mode = Mode.VISIBLE;
+		} else if (modeInt == 0) {
+			mode = Mode.HIDDEN;
+		} else {
+			mode = Mode.OCCUPIED;
+		}
+
+		User user = new User(name, x, y, radius, mode);
+
+		return user;
+	}
+
+	public List<User> readOthers() {
+		List<User> users = null;
+		return users;
+	}
+
+	public List<User> readOthers(int size) {
+		List<User> users = null;
+
+		for (int i = 0; i < size; i++) {
+			String name = readString();
+			int x = readInt();
+			int y = readInt();
+			int radius = readInt();
+			String modestring = readString();
+			Mode mode = Mode.valueOf(modestring);
+
+			User temp = new User(name, x, y, radius, mode);
+
+			users.add(i, temp);
+		}
+
+		return users;
+	}
+
+	public Map<String, Preference> readPreferences(int size) {
+		Map<String, Preference> buffer = null;
+		Preference pref = null;
+		String string;
+
+		for (int i = 0; i < size; i++) {
+			string = readString();
+			pref.setLevel(readInt());
+			pref.setVisibility(readBoolean());
+			buffer.put(string, pref);
+		}
+
+		return buffer;
+	}
 
 }

@@ -1,13 +1,13 @@
 package fr.ensisa.hassenforder.proximity.server;
 
 import java.io.OutputStream;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import fr.ensisa.hassenforder.network.BasicAbstractWriter;
 import fr.ensisa.hassenforder.network.Protocol;
 import fr.ensisa.hassenforder.proximity.model.Preference;
-import fr.ensisa.hassenforder.proximity.model.User;
 
 public class Writer extends BasicAbstractWriter {
 
@@ -31,12 +31,17 @@ public class Writer extends BasicAbstractWriter {
 		
 		int size = preferences.size();
 		writeInt(size);
-		for (int i =0; i<size ; i++){
-			writeString(preferences.get(i).getName());
-			writeInt(preferences.get(i).getLevel());
-			writeBoolean(preferences.get(i).isVisibility());
 			
-		
+		Iterator entries = preferences.entrySet().iterator();
+		while (entries.hasNext()) {
+		    Map.Entry entry = (Map.Entry) entries.next();
+		    String key = (String)entry.getKey();
+		    Preference value = (Preference)entry.getValue();
+
+		    writeString(key);
+		    writeInt(value.getLevel());
+		    writeBoolean(value.isVisibility());
+	
 		}
 		
 		
