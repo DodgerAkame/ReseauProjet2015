@@ -23,11 +23,7 @@ public class SessionServer {
 			Reader reader = new Reader(connection.getInputStream());
 						
 			reader.receive();
-<<<<<<< HEAD
-			
-			
-=======
->>>>>>> c4aec5c1fc670f5d754616eef17b9140d9207846
+
 			
 			System.out.println("yeah");
 			
@@ -41,15 +37,9 @@ public class SessionServer {
 				y,
 				mode = 0,
 				radius;
-<<<<<<< HEAD
-				
-				
 
-=======
-				System.out.println("je suis toujours la");
-				System.out.println("hahy");
 				String name = reader.readname();
->>>>>>> c4aec5c1fc670f5d754616eef17b9140d9207846
+
 				if (document.doConnect(name) == null) {
 					writer.error(); // si pas de nom renvoie une erreur
 				} else {
@@ -66,7 +56,7 @@ public class SessionServer {
 						mode = 0;
 					} else if (document.doGetState(name).getMode().equals("OCCUPIED"))
 						mode = 2;
-<<<<<<< HEAD
+
 					//faire une map
 					Map <String, Preference> buffer = document
 							.doGetState(name).getPreferences();
@@ -74,10 +64,7 @@ public class SessionServer {
 					writer.estConnect(name, x, y, mode, radius, buffer);
 				}
 				
-=======
-					writer.estConnect(name, x, y, mode, radius, document.doGetState(name).getPreferences());
-				}break;
->>>>>>> c4aec5c1fc670f5d754616eef17b9140d9207846
+
 
 			/*case Protocol.REQ_RAD:
 				String name1 = reader.readname();
@@ -110,12 +97,7 @@ public class SessionServer {
 					document.doFind(name2);
 					writer.sendFind();
 				}*/
-<<<<<<< HEAD
 
-				//break;
-=======
-				
->>>>>>> c4aec5c1fc670f5d754616eef17b9140d9207846
 			/*default:
 				return false; // connection jammed */
 			}
