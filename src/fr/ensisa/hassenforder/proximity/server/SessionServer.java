@@ -23,11 +23,8 @@ public class SessionServer {
 			Reader reader = new Reader(connection.getInputStream());
 						
 			reader.receive();
-		
-			System.out.println("yeah");	
 			
-			String name = reader.readname();
-			
+			System.out.println("yeah");
 			System.out.println(reader.getType());
 			System.out.println(Protocol.GET_LOGIN);
 			switch (reader.getType()) {// probleme le processus s'arrête ici 
@@ -40,27 +37,25 @@ public class SessionServer {
 				mode,
 				radius;
 				System.out.println("je suis toujours la");
-				
-				System.out.println(name);
+				reader.readname();
 				System.out.println("hahy");
 
-				if (document.doConnect(name) == null) {
+				if (document.doConnect(reader.readname()) == null) {
 					writer.error(); // si pas de nom renvoie une erreur
 				} else {
-					x = document.doGetState(name).getX();
-					y = document.doGetState(name).getY();
-					radius = document.doGetState(name).getRadius();
-					if (document.doGetState(name).getMode().equals("VISIBLE")) {
+					x = document.doGetState(reader.readname()).getX();
+					y = document.doGetState(reader.readname()).getY();
+					radius = document.doGetState(reader.readname()).getRadius();
+					if (document.doGetState(reader.readname()).getMode().equals("VISIBLE")) {
 						mode = 1;
 
-					} else if (document.doGetState(name).getMode()
-							.equals("HIDDEN")) {
+					} else if (document.doGetState(reader.readname()).getMode().equals("HIDDEN")) {
 						mode = 0;
 					} else
 						mode = 2;
 
-					writer.estConnect(name, x, y, mode, radius, document
-							.doGetState(name).getPreferences());
+					writer.estConnect(reader.readname(), x, y, mode, radius, document
+							.doGetState(reader.readname()).getPreferences());
 					writer.send();
 				}
 

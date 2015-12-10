@@ -21,7 +21,6 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.GET_LOGIN :
 			readname();
 			
-			
 		/*case Protocol.REQ_PREF :
 			readname();
 		case Protocol.REQ_MOV :
@@ -39,6 +38,7 @@ public class Reader extends BasicAbstractReader {
 
 	public String readname() {
 		String name = readString();
+		System.out.println(name);
 		return name;
 		
 	}
