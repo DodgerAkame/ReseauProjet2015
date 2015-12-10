@@ -34,6 +34,7 @@ public class Writer extends BasicAbstractWriter {
 			writeString(preferences.get(i).getName());
 			writeInt(preferences.get(i).getLevel());
 			writeBoolean(preferences.get(i).isVisibility());
+			
 		
 		}
 		

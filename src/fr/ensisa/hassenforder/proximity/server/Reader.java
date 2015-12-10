@@ -16,11 +16,14 @@ public class Reader extends BasicAbstractReader {
 
 	public void receive() {
 		type = readInt ();
+		System.out.println(type);
 		switch (type) {
-		case 0 :
-			break;
+
 		case Protocol.GET_LOGIN :
+			System.out.println("baba");
 			readname();
+			System.out.println("tata");
+			
 		case Protocol.REQ_PREF :
 			readname();
 		case Protocol.REQ_MOV :
@@ -28,9 +31,9 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.REQ_RAD :
 			readRad();
 		case Protocol.REQ_PROPUPVIS :
-			break;
+			
 		case Protocol.REQ_MODE :
-			break;
+			
 		case Protocol.REQ_PROPUPLEV :
 			break;
 		}
