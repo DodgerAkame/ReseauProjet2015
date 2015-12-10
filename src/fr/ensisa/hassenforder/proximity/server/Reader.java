@@ -19,20 +19,22 @@ public class Reader extends BasicAbstractReader {
 		switch (type) {
 
 		case Protocol.GET_LOGIN :
-			readname();
-			
-		/*case Protocol.REQ_PREF :
-			readname();
+			break;
+		
 		case Protocol.REQ_MOV :
 			readMov();
-		case Protocol.REQ_RAD :
+			break;
+		/*case Protocol.REQ_RAD :
 			readRad();
 		case Protocol.REQ_PROPUPVIS :
 			
 		case Protocol.REQ_MODE :
 			
-		case Protocol.REQ_PROPUPLEV :*/
-			break;
+		case Protocol.REQ_PROPUPLEV :
+		
+		case Protocol.REQ_PREF :
+			readname();*/
+			
 		}
 	}
 
