@@ -1,6 +1,7 @@
 package fr.ensisa.hassenforder.proximity.client;
 
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,8 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.REP_KO:
 			break;
 		case Protocol.REP_LOGIN:
-			readLogin();
+			// readLogin();
+			// readPreferences();
 			break;
 		case Protocol.REP_USER:
 			readUser();
@@ -103,15 +105,20 @@ public class Reader extends BasicAbstractReader {
 		return users;
 	}
 
-	public Map<String, Preference> readPreferences(int size) {
+	public Map<String, Preference> readPreferences() { // Problème ici
 		Map<String, Preference> buffer = null;
-		Preference pref = null;
 		String string;
+		int level;
+		boolean vis;
+
+		int size = readInt();
 
 		for (int i = 0; i < size; i++) {
 			string = readString();
-			pref.setLevel(readInt());
-			pref.setVisibility(readBoolean());
+			level = readInt();
+			vis = readBoolean();
+			Preference pref = new Preference(string, level, vis);
+
 			buffer.put(string, pref);
 		}
 

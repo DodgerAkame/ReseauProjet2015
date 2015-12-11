@@ -25,14 +25,14 @@ public class SessionServer {
 			reader.receive();
 
 			
-			System.out.println("yeah");
+			
 			
 			
 			switch (reader.getType()) {
 			case 0:
 				return false; // socket closed
 			case Protocol.GET_LOGIN:
-				System.out.println("je suis entré");
+				
 				int x,
 				y,
 				mode = 0,
@@ -43,7 +43,7 @@ public class SessionServer {
 				if (document.doConnect(name) == null) {
 					writer.error(); // si pas de nom renvoie une erreur
 				} else {
-					System.out.println("r1rrr");
+					
 					x = document.doGetState(name).getX();
 					y = document.doGetState(name).getY();
 					radius = document.doGetState(name).getRadius();
@@ -64,7 +64,7 @@ public class SessionServer {
 					writer.estConnect(name, x, y, mode, radius, buffer);
 				}
 				
-
+				break;
 
 			/*case Protocol.REQ_RAD:
 				String name1 = reader.readname();

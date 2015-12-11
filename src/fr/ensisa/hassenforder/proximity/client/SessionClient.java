@@ -29,17 +29,23 @@ public class SessionClient {
 			reader.receive();
 
 			User user = null;
+			Map<String, Preference> pref = null;
 
-			if (reader.getType() == Protocol.REP_KO){
+			if (reader.getType() == Protocol.REP_KO) {
 				throw new IOException("Erreur de connexion");
 			}
-			
+
 			if (reader.getType() == Protocol.REP_LOGIN) {
-				user = reader.readUser();
+				user = reader.readLogin();//Problème ici, voir avec Receive
+				pref = reader.readPreferences();
 				System.out.println("OK");
+				
+				
+				
 				return user;
 			}
 			return null;
+
 		} catch (IOException e) {
 
 			return null;
