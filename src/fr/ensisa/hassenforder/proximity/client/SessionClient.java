@@ -2,6 +2,7 @@ package fr.ensisa.hassenforder.proximity.client;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,22 @@ public class SessionClient {
 			if (reader.getType() == Protocol.REP_LOGIN) {
 				user = reader.readLogin();//Problème ici, voir avec Receive
 				pref = reader.readPreferences();
+				
+				Iterator entries = pref.entrySet().iterator();
+				while(entries.hasNext()){
+					
+					String hobby ="";
+					int level = 0; 
+					boolean vis = false;
+
+					Preference buffer = new Preference(hobby,level,vis);
+					
+					buffer = pref.();
+					
+					
+				}
+				
+				
 				System.out.println("OK");
 				
 				

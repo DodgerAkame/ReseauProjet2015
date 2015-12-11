@@ -119,6 +119,7 @@ public class Reader extends BasicAbstractReader {
 			vis = readBoolean();
 			Preference pref = new Preference(string, level, vis);
 
+			
 			buffer.put(string, pref);
 		}
 
