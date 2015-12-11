@@ -28,7 +28,7 @@ public class Writer extends BasicAbstractWriter {
 		writeInt(y);
 		writeInt(radius);
 		writeInt(mode);
-
+		
 		int size = preferences.size();
 		writeInt(size);
 

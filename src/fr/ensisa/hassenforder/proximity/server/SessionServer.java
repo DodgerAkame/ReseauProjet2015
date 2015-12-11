@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Map;
 
 import fr.ensisa.hassenforder.network.Protocol;
+import fr.ensisa.hassenforder.proximity.model.Mode;
 import fr.ensisa.hassenforder.proximity.model.Preference;
 
 public class SessionServer {
@@ -48,13 +49,13 @@ public class SessionServer {
 					y = document.doGetState(name).getY();
 					radius = document.doGetState(name).getRadius();
 					System.out.println(document.doGetState(name).getMode());
-					if (document.doGetState(name).getMode().equals("VISIBLE")) {
+					if (document.doGetState(name).getMode() == Mode.VISIBLE) {
 						
 						mode = 1;
 
-					} else if (document.doGetState(name).getMode().equals("HIDDEN")) {
+					} else if (document.doGetState(name).getMode() == Mode.HIDDEN) {
 						mode = 0;
-					} else if (document.doGetState(name).getMode().equals("OCCUPIED"))
+					} else if (document.doGetState(name).getMode() == Mode.OCCUPIED)
 						mode = 2;
 
 					//faire une map

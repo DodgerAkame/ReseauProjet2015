@@ -1,7 +1,7 @@
 package fr.ensisa.hassenforder.proximity.client;
 
 import java.io.InputStream;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -105,8 +105,8 @@ public class Reader extends BasicAbstractReader {
 		return users;
 	}
 
-	public Map<String, Preference> readPreferences() { // Problème ici
-		Map<String, Preference> buffer = null;
+	public Map<String, Preference> readPreferences() {
+		Map<String, Preference> buffer = new HashMap<String, Preference>();
 		String string;
 		int level;
 		boolean vis;
