@@ -59,4 +59,30 @@ public class Writer extends BasicAbstractWriter {
 		super.send();
 	}
 
+	public void sendState(String name, int x, int y, int mode, int radius,
+			Map<String, Preference> preferences) {
+		// TODO Auto-generated method stub
+		writeInt(Protocol.REP_USER);
+		writeString(name);
+		writeInt(x);
+		writeInt(y);
+		writeInt(radius);
+		writeInt(mode);
+		
+		int size = preferences.size();
+		writeInt(size);
+
+		Iterator entries = preferences.entrySet().iterator();
+		while (entries.hasNext()) {
+			Map.Entry entry = (Map.Entry) entries.next();
+			String key = (String) entry.getKey();
+			Preference value = (Preference) entry.getValue();
+
+			writeString(key);
+			writeInt(value.getLevel());
+			writeBoolean(value.isVisibility());
+
+		}
+	}
+
 }

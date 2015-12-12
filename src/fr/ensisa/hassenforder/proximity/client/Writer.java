@@ -45,6 +45,12 @@ public class Writer extends BasicAbstractWriter {
 	 * client public void searchOther(int x, int y) {
 	 * writeInt(Protocol.GET_USER); writeInt(x); writeInt(y); }
 	 */
+	
+	public void getState(String name){
+		writeInt(Protocol.GET_USER);
+		writeString(name);
+	}
+	
 	public void updatePreferenceVisibility(String hobby, boolean visibility) {
 		writeInt(Protocol.REQ_PROPUPVIS);
 		writeString(hobby);

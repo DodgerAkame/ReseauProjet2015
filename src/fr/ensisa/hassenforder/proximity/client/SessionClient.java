@@ -16,7 +16,6 @@ public class SessionClient {
 
 	private Socket connection;
 
-
 	public SessionClient(Socket connection) {
 		this.connection = connection;
 	}
@@ -31,15 +30,15 @@ public class SessionClient {
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
 
-			User user = null;
-			Map<String, Preference> pref = null;
-
 			if (reader.getType() == Protocol.REP_KO) {
 				throw new IOException("Connection aborted");
 			}
 
 			if (reader.getType() == Protocol.REP_LOGIN) {
-				user = reader.readLogin();// Problème ici, voir avec Receive
+				User user = null;
+				Map<String, Preference> pref = null;
+
+				user = reader.readLogin();
 				pref = reader.readPreferences();
 
 				Iterator entries = pref.entrySet().iterator();
@@ -50,7 +49,7 @@ public class SessionClient {
 																// string
 																// contenant la
 																// préférence
-					
+
 					StringTokenizer st = new StringTokenizer(bonjour, "="); // Je
 																			// transforme
 																			// la
@@ -72,7 +71,7 @@ public class SessionClient {
 					user.addPreference(buffer);
 
 				}
-				
+
 				return user;
 			}
 			return null;
@@ -88,15 +87,49 @@ public class SessionClient {
 		connection = null;
 	}
 
-	public User getState(String name) { // ********
+	public User getState(String name) {
 		try {
-			if (!connection.isConnected())
-				throw new IOException("not yet implemented");
 
 			Writer writer = new Writer(connection.getOutputStream());
+			writer.getState(name);
+			writer.send();
 
 			Reader reader = new Reader(connection.getInputStream());
-			// return user;
+			reader.receive();
+
+			if (reader.getType() == Protocol.REP_KO)
+				throw new IOException("not yet implemented");
+
+			if (reader.getType() == Protocol.REP_USER) {
+				User user = null;
+				Map<String, Preference> pref = null;
+
+				user = reader.readUser();
+				pref = reader.readPreferences();
+
+				Iterator entries = pref.entrySet().iterator();
+
+				while (entries.hasNext()) {
+
+					String bonjour = entries.next().toString();
+
+					StringTokenizer st = new StringTokenizer(bonjour, "=");
+
+					String hobby = "";
+					int level = 0;
+					boolean vis = false;
+
+					Preference buffer = new Preference(hobby, level, vis);
+
+					buffer = pref.get(st.nextToken());
+
+					user.addPreference(buffer);
+
+				}
+
+				return user;
+
+			}
 			return null;
 		} catch (IOException e) {
 			return null;
@@ -166,6 +199,7 @@ public class SessionClient {
 				throw new IOException("Request move aborted");
 
 			if (reader.getType() == Protocol.REP_OK) {
+				
 				
 				return true;
 			}

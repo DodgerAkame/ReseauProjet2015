@@ -44,7 +44,6 @@ public class SessionServer {
 					x = document.doGetState(name).getX();
 					y = document.doGetState(name).getY();
 					radius = document.doGetState(name).getRadius();
-					System.out.println(document.doGetState(name).getMode());
 					if (document.doGetState(name).getMode() == Mode.VISIBLE) {
 
 						mode = 1;
@@ -63,6 +62,39 @@ public class SessionServer {
 
 				break;
 
+			case Protocol.GET_USER:
+
+				int x1,
+				y1,
+				mode1 = 0,
+				radius1;
+
+				String name1 = reader.readname();
+
+				if (document.doConnect(name1) == null) {
+					writer.error(); // si pas de nom renvoie une erreur
+				} else {
+
+					x1 = document.doGetState(name1).getX();
+					y1 = document.doGetState(name1).getY();
+					radius1 = document.doGetState(name1).getRadius();
+					if (document.doGetState(name1).getMode() == Mode.VISIBLE) {
+
+						mode1 = 1;
+
+					} else if (document.doGetState(name1).getMode() == Mode.HIDDEN) {
+						mode1 = 0;
+					} else if (document.doGetState(name1).getMode() == Mode.OCCUPIED)
+						mode1 = 2;
+
+					// faire une map
+					Map<String, Preference> buffer = document.doGetState(name1)
+							.getPreferences();
+
+					writer.sendState(name1, x1, y1, mode1, radius1, buffer);
+				}
+
+				break;
 			/*
 			 * case Protocol.REQ_RAD: String name1 = reader.readname();
 			 * System.out.println(name1); int rad = reader.readRad(); if (rad <
@@ -72,7 +104,6 @@ public class SessionServer {
 
 			case Protocol.REQ_MOV:
 				String name0 = reader.readname();
-				System.out.println(name0);
 				int t[] = reader.readMov();
 				if (t[0] < 0 || t[1] < 0) {
 					writer.error();

@@ -19,25 +19,6 @@ public class Reader extends BasicAbstractReader {
 
 	public void receive() {
 		type = readInt();
-		switch (type) {
-		case Protocol.REP_KO:
-			break;
-	/*	case Protocol.REP_LOGIN:
-			// readLogin();
-			// readPreferences();
-			break;
-		case Protocol.REP_USER:
-			readUser();
-			break;
-		case Protocol.REP_USERS:
-			readOthers(readInt());
-			break;
-		case 0:
-			break;*/
-		default:
-			break;
-		}
-
 	}
 
 	public User readLogin() {
@@ -119,7 +100,6 @@ public class Reader extends BasicAbstractReader {
 			vis = readBoolean();
 			Preference pref = new Preference(string, level, vis);
 
-			
 			buffer.put(string, pref);
 		}
 
