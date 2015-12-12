@@ -22,7 +22,7 @@ public class Reader extends BasicAbstractReader {
 		switch (type) {
 		case Protocol.REP_KO:
 			break;
-		case Protocol.REP_LOGIN:
+	/*	case Protocol.REP_LOGIN:
 			// readLogin();
 			// readPreferences();
 			break;
@@ -33,7 +33,7 @@ public class Reader extends BasicAbstractReader {
 			readOthers(readInt());
 			break;
 		case 0:
-			break;
+			break;*/
 		default:
 			break;
 		}

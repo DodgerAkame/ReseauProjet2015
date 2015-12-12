@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import fr.ensisa.hassenforder.network.Protocol;
 import fr.ensisa.hassenforder.proximity.model.Mode;
@@ -37,28 +38,32 @@ public class SessionClient {
 			}
 
 			if (reader.getType() == Protocol.REP_LOGIN) {
-				user = reader.readLogin();//Problème ici, voir avec Receive
+				user = reader.readLogin();// Problème ici, voir avec Receive
 				pref = reader.readPreferences();
-				
+
 				Iterator entries = pref.entrySet().iterator();
-				while(entries.hasNext()){
-					
-					String hobby ="";
-					int level = 0; 
+
+				while (entries.hasNext()) {
+
+					String bonjour = entries.next().toString(); //Crée un string contenant la préférence
+					System.out.println(bonjour);
+					StringTokenizer st = new StringTokenizer(bonjour, "="); //Je transforme la chaîne en tokens
+
+
+					String hobby = "";
+					int level = 0;
 					boolean vis = false;
 
-					Preference buffer = new Preference(hobby,level,vis);
+					Preference buffer = new Preference(hobby, level, vis);
+
+					buffer = pref.get(st.nextToken()); //Je recupere la préférence en utilisant comme clé le 1er token
 					
-					buffer = pref.();
-					
-					
+					user.addPreference(buffer);
+
 				}
-				
-				
+
 				System.out.println("OK");
-				
-				
-				
+
 				return user;
 			}
 			return null;
