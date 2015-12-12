@@ -22,18 +22,14 @@ public class SessionServer {
 		try {
 			Writer writer = new Writer(connection.getOutputStream());
 			Reader reader = new Reader(connection.getInputStream());
-						
+
 			reader.receive();
 
-			
-			
-			
-			
 			switch (reader.getType()) {
 			case 0:
 				return false; // socket closed
 			case Protocol.GET_LOGIN:
-				
+
 				int x,
 				y,
 				mode = 0,
@@ -44,13 +40,13 @@ public class SessionServer {
 				if (document.doConnect(name) == null) {
 					writer.error(); // si pas de nom renvoie une erreur
 				} else {
-					
+
 					x = document.doGetState(name).getX();
 					y = document.doGetState(name).getY();
 					radius = document.doGetState(name).getRadius();
 					System.out.println(document.doGetState(name).getMode());
 					if (document.doGetState(name).getMode() == Mode.VISIBLE) {
-						
+
 						mode = 1;
 
 					} else if (document.doGetState(name).getMode() == Mode.HIDDEN) {
@@ -58,25 +54,21 @@ public class SessionServer {
 					} else if (document.doGetState(name).getMode() == Mode.OCCUPIED)
 						mode = 2;
 
-					//faire une map
-					Map <String, Preference> buffer = document
-							.doGetState(name).getPreferences();
-					
+					// faire une map
+					Map<String, Preference> buffer = document.doGetState(name)
+							.getPreferences();
+
 					writer.estConnect(name, x, y, mode, radius, buffer);
 				}
-				
+
 				break;
 
-			/*case Protocol.REQ_RAD:
-				String name1 = reader.readname();
-				System.out.println(name1);
-				int rad = reader.readRad();
-				if (rad < 0) {
-					writer.error();
-				} else {
-					document.doChangeRadius(name1, rad);
-					writer.changeOK();
-				}*/
+			/*
+			 * case Protocol.REQ_RAD: String name1 = reader.readname();
+			 * System.out.println(name1); int rad = reader.readRad(); if (rad <
+			 * 0) { writer.error(); } else { document.doChangeRadius(name1,
+			 * rad); writer.changeOK(); }
+			 */
 
 			case Protocol.REQ_MOV:
 				String name0 = reader.readname();
@@ -87,20 +79,18 @@ public class SessionServer {
 				} else {
 					document.doMove(name0, t[0], t[1]);
 					writer.changeOK();
-				}break;
+				}
+				break;
 
-/*
-			case Protocol.REQ_PREF:
-				String name2 = reader.readname();
-				if (name2 == null) {
-					writer.error();
-				} else {
-					document.doFind(name2);
-					writer.sendFind();
-				}*/
+			/*
+			 * case Protocol.REQ_PREF: String name2 = reader.readname(); if
+			 * (name2 == null) { writer.error(); } else {
+			 * document.doFind(name2); writer.sendFind(); }
+			 */
 
-			/*default:
-				return false; // connection jammed */
+			/*
+			 * default: return false; // connection jammed
+			 */
 			}
 			writer.send();
 			return true;

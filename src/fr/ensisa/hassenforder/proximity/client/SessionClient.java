@@ -16,6 +16,7 @@ public class SessionClient {
 
 	private Socket connection;
 
+
 	public SessionClient(Socket connection) {
 		this.connection = connection;
 	}
@@ -34,7 +35,7 @@ public class SessionClient {
 			Map<String, Preference> pref = null;
 
 			if (reader.getType() == Protocol.REP_KO) {
-				throw new IOException("Erreur de connexion");
+				throw new IOException("Connection aborted");
 			}
 
 			if (reader.getType() == Protocol.REP_LOGIN) {
@@ -45,10 +46,17 @@ public class SessionClient {
 
 				while (entries.hasNext()) {
 
-					String bonjour = entries.next().toString(); //Crée un string contenant la préférence
-					System.out.println(bonjour);
-					StringTokenizer st = new StringTokenizer(bonjour, "="); //Je transforme la chaîne en tokens
-
+					String bonjour = entries.next().toString(); // Crée un
+																// string
+																// contenant la
+																// préférence
+					
+					StringTokenizer st = new StringTokenizer(bonjour, "="); // Je
+																			// transforme
+																			// la
+																			// chaîne
+																			// en
+																			// tokens
 
 					String hobby = "";
 					int level = 0;
@@ -56,14 +64,15 @@ public class SessionClient {
 
 					Preference buffer = new Preference(hobby, level, vis);
 
-					buffer = pref.get(st.nextToken()); //Je recupere la préférence en utilisant comme clé le 1er token
-					
+					buffer = pref.get(st.nextToken()); // Je recupere la
+														// préférence en
+														// utilisant comme clé
+														// le 1er token
+
 					user.addPreference(buffer);
 
 				}
-
-				System.out.println("OK");
-
+				
 				return user;
 			}
 			return null;
@@ -79,38 +88,49 @@ public class SessionClient {
 		connection = null;
 	}
 
-	public User getState(String name) {
+	public User getState(String name) { // ********
 		try {
 			if (!connection.isConnected())
 				throw new IOException("not yet implemented");
-			User user = null;
 
 			Writer writer = new Writer(connection.getOutputStream());
 
 			Reader reader = new Reader(connection.getInputStream());
-			return user;
+			// return user;
+			return null;
 		} catch (IOException e) {
 			return null;
 		}
 	}
 
-	public List<User> findNear(String name) {
+	public List<User> findNear(String name) { // *************
 		try {
-			if (true)
-				throw new IOException("not yet implemented");
 
-			List<User> users = null;
+			Writer writer = new Writer(connection.getOutputStream());
+			writer.searchNear(name);
+			writer.send();
 
-			return users;
+			Reader reader = new Reader(connection.getInputStream());
+			reader.receive();
+
+			if (reader.getType() == Protocol.REP_KO)
+				throw new IOException("Request aborted");
+
+			if (reader.getType() == Protocol.REP_USERS) {
+				List<User> users = null;
+				// Réception à faire
+
+				return users;
+			}
+
+			return null;
 		} catch (IOException e) {
 			return null;
 		}
 	}
 
-	public boolean changeMode(String name, Mode mode) {
+	public boolean changeMode(String name, Mode mode) { // **************
 		try {
-			if (true)
-				throw new IOException("not yet implemented");
 
 			Writer writer = new Writer(connection.getOutputStream());
 			writer.updateMode(mode);
@@ -119,7 +139,14 @@ public class SessionClient {
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
 
-			return true;
+			if (reader.getType() == Protocol.REP_KO)
+				throw new IOException("Request aborted");
+			if (reader.getType() == Protocol.REP_USER) {
+				// Y'a un truc là
+
+				return true;
+			}
+			return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -127,17 +154,23 @@ public class SessionClient {
 
 	public boolean move(String name, int x, int y) {
 		try {
-			if (true)
-				throw new IOException("not yet implemented");
 
 			Writer writer = new Writer(connection.getOutputStream());
-			writer.updateMove(x, y);
+			writer.updateMove(name, x, y);
 			writer.send();
 
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
 
-			return true;
+			if (reader.getType() == Protocol.REP_KO)
+				throw new IOException("Request move aborted");
+
+			if (reader.getType() == Protocol.REP_OK) {
+				
+				return true;
+			}
+
+			return false;
 		} catch (IOException e) {
 			return false;
 		}

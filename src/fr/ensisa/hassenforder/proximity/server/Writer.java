@@ -52,7 +52,7 @@ public class Writer extends BasicAbstractWriter {
 	}
 
 	public void sendFind() {
-
+		writeInt(Protocol.REP_USERS); //tiens je te prémâche le boulot
 	}
 
 	public void send() {

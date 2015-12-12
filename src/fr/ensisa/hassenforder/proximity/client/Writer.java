@@ -27,16 +27,17 @@ public class Writer extends BasicAbstractWriter {
 		writeInt(rad);
 	}
 
-	public void updateMove(int x, int y) {
+	public void updateMove(String name,int x, int y) {
 		writeInt(Protocol.REQ_MOV);
+		writeString(name);
 		writeInt(x);
 		writeInt(y);
 	}
 
-	public void searchNear(String name, int level) {
+	public void searchNear(String name) {
 		writeInt(Protocol.REQ_PREF);
 		writeString(name);
-		writeInt(level); // pour le find j'ai juste besoin du nom cf doFind()
+		 // pour le find j'ai juste besoin du nom cf doFind()
 	}
 
 	/*
