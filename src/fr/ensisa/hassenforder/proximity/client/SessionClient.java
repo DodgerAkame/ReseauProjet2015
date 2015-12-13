@@ -137,7 +137,7 @@ public class SessionClient {
 		}
 	}
 
-	public List<User> findNear(String name) { // *************
+	public List<User> findNear(String name) { // ************* A FAIRE
 		try {
 
 			Writer writer = new Writer(connection.getOutputStream());
@@ -163,11 +163,11 @@ public class SessionClient {
 		}
 	}
 
-	public boolean changeMode(String name, Mode mode) { // **************
+	public boolean changeMode(String name, Mode mode) {
 		try {
 
 			Writer writer = new Writer(connection.getOutputStream());
-			writer.updateMode(mode);
+			writer.updateMode(name,mode);
 			writer.send();
 
 			Reader reader = new Reader(connection.getInputStream());
@@ -175,8 +175,9 @@ public class SessionClient {
 
 			if (reader.getType() == Protocol.REP_KO)
 				throw new IOException("Request aborted");
-			if (reader.getType() == Protocol.REP_USER) {
-				// Y'a un truc là
+			if (reader.getType() == Protocol.REP_OK) {
+				
+				me.setMode(mode);
 
 				return true;
 			}

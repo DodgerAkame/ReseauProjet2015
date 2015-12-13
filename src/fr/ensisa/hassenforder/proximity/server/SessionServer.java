@@ -83,7 +83,7 @@ public class SessionServer {
 					} else if (document.doGetState(name).getMode() == Mode.OCCUPIED)
 						mode = 2;
 
-					// faire une map
+					
 					Map<String, Preference> buffer = document.doGetState(name)
 							.getPreferences();
 
@@ -135,6 +135,15 @@ public class SessionServer {
 				document.doChangePreferenceVisibility(name, preference, vis);
 				writer.changeOK();
 
+				break;
+				
+			case Protocol.REQ_MODE:
+				name = reader.readname();
+				Mode modeenum = reader.readMode();
+				
+				document.doChangeMode(name, modeenum);
+				writer.changeOK();
+				
 				break;
 			/*
 			 * case Protocol.REQ_PREF: String name2 = reader.readname(); if

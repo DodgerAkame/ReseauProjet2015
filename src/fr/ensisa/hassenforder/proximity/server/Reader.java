@@ -74,4 +74,27 @@ public class Reader extends BasicAbstractReader {
 		return vis;
 	}
 	
+	public Mode readMode(){
+		Mode modeEnum;
+		int modeInt = readInt();
+		
+		switch(modeInt){
+		
+		case 0 :
+			modeEnum = Mode.HIDDEN;
+			break;
+		case 1 : 
+			modeEnum = Mode.VISIBLE;
+			break;
+		case 2 :
+			modeEnum = Mode.OCCUPIED;
+			break;
+		default :
+			modeEnum = Mode.OCCUPIED;
+			break;
+		}
+		
+		return modeEnum;
+	}
+	
 }

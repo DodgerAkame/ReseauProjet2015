@@ -66,8 +66,9 @@ public class Writer extends BasicAbstractWriter {
 		writeInt(level);
 	}
 
-	public void updateMode(Mode mode) {
+	public void updateMode(String name, Mode mode) {
 		writeInt(Protocol.REQ_MODE);
+		writeString(name);
 
 		switch (mode) {
 		case OCCUPIED:
