@@ -22,8 +22,9 @@ public class Writer extends BasicAbstractWriter {
 		
 	}
 
-	public void updateRadius(int rad) {
+	public void updateRadius(String name, int rad) {
 		writeInt(Protocol.REQ_RAD);
+		writeString(name);
 		writeInt(rad);
 	}
 

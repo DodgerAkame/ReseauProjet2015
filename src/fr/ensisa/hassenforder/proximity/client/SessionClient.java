@@ -15,6 +15,7 @@ import fr.ensisa.hassenforder.proximity.model.User;
 public class SessionClient {
 
 	private Socket connection;
+	private User me;
 
 	public SessionClient(Socket connection) {
 		this.connection = connection;
@@ -71,7 +72,7 @@ public class SessionClient {
 					user.addPreference(buffer);
 
 				}
-
+				this.me = user;
 				return user;
 			}
 			return null;
@@ -126,7 +127,7 @@ public class SessionClient {
 					user.addPreference(buffer);
 
 				}
-
+				this.me = user;
 				return user;
 
 			}
@@ -199,8 +200,9 @@ public class SessionClient {
 				throw new IOException("Request move aborted");
 
 			if (reader.getType() == Protocol.REP_OK) {
-				
-				
+				this.me.setX(x);
+				this.me.setY(y);
+
 				return true;
 			}
 
@@ -212,19 +214,27 @@ public class SessionClient {
 
 	public boolean changeRadius(String name, int radius) {
 		try {
-			if (true)
-				throw new IOException("not yet implemented");
 
 			Writer writer = new Writer(connection.getOutputStream());
-			writer.updateRadius(radius);
+			writer.updateRadius(name, radius);
 			writer.send();
 
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
 
-			return true;
+			if (reader.getType() == Protocol.REP_KO)
+				throw new IOException("Request move aborted");
+
+			if (reader.getType() == Protocol.REP_OK) {
+				this.me.setRadius(radius);
+
+				return true;
+			}
+
+			return false;
 		} catch (IOException e) {
 			return false;
+
 		}
 	}
 

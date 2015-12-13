@@ -95,12 +95,19 @@ public class SessionServer {
 				}
 
 				break;
-			/*
-			 * case Protocol.REQ_RAD: String name1 = reader.readname();
-			 * System.out.println(name1); int rad = reader.readRad(); if (rad <
-			 * 0) { writer.error(); } else { document.doChangeRadius(name1,
-			 * rad); writer.changeOK(); }
-			 */
+
+			case Protocol.REQ_RAD:
+				String name3 = reader.readname();
+				System.out.println(name3);
+				int rad = reader.readRad();
+				if (rad < 0) {
+					writer.error();
+				} else {
+					document.doChangeRadius(name3, rad);
+					writer.changeOK();
+				}
+
+				break;
 
 			case Protocol.REQ_MOV:
 				String name0 = reader.readname();
@@ -110,6 +117,7 @@ public class SessionServer {
 				} else {
 					document.doMove(name0, t[0], t[1]);
 					writer.changeOK();
+
 				}
 				break;
 
