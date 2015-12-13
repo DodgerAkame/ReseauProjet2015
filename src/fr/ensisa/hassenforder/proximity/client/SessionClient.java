@@ -243,14 +243,22 @@ public class SessionClient {
 		try {
 
 			Writer writer = new Writer(connection.getOutputStream());
-			writer.updatePreferenceLevel(preference, value);
+			writer.updatePreferenceLevel(name,preference, value);
 			writer.send();
 
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
 
-			if (reader.getType() == Protocol.REP_OK)
+			if (reader.getType() == Protocol.REP_KO)
+				throw new IOException("Request update level aborted");
+			
+			if (reader.getType() == Protocol.REP_OK){
+				
+				me.getPreferenceByName(preference).setLevel(value);
+				
+				
 				return true;
+			}
 			return false;
 		} catch (IOException e) {
 			return false;
@@ -258,19 +266,26 @@ public class SessionClient {
 	}
 
 	public boolean changePreferenceVisibility(String name, String preference,
-			boolean value) {
+			boolean visibility) {
 		try {
-			if (true)
-				throw new IOException("not yet implemented");
-
 			Writer writer = new Writer(connection.getOutputStream());
-			writer.updatePreferenceVisibility(preference, value);
+			writer.updatePreferenceVisibility(name, preference, visibility);
 			writer.send();
 
 			Reader reader = new Reader(connection.getInputStream());
 			reader.receive();
 
-			return true;
+			if (reader.getType() == Protocol.REP_KO)
+				throw new IOException("Request update visibility aborted");
+			
+			if (reader.getType() == Protocol.REP_OK){
+				
+				me.getPreferenceByName(preference).setVisibility(visibility);
+				
+				
+				return true;
+			}
+			return false;
 		} catch (IOException e) {
 			return false;
 		}

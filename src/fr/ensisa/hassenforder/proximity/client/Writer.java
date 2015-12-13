@@ -52,15 +52,17 @@ public class Writer extends BasicAbstractWriter {
 		writeString(name);
 	}
 	
-	public void updatePreferenceVisibility(String hobby, boolean visibility) {
+	public void updatePreferenceVisibility(String name,String preference, boolean visibility) {
 		writeInt(Protocol.REQ_PROPUPVIS);
-		writeString(hobby);
+		writeString(name);
+		writeString(preference);
 		writeBoolean(visibility);
 	}
 
-	public void updatePreferenceLevel(String hobby, int level) {
+	public void updatePreferenceLevel(String name, String preference, int level) {
 		writeInt(Protocol.REQ_PROPUPLEV);
-		writeString(hobby);
+		writeString(name);
+		writeString(preference);
 		writeInt(level);
 	}
 

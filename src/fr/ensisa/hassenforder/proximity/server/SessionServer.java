@@ -63,64 +63,79 @@ public class SessionServer {
 				break;
 
 			case Protocol.GET_USER:
+				mode = 0;
+				
+				name = reader.readname();
 
-				int x1,
-				y1,
-				mode1 = 0,
-				radius1;
-
-				String name1 = reader.readname();
-
-				if (document.doConnect(name1) == null) {
+				if (document.doConnect(name) == null) {
 					writer.error(); // si pas de nom renvoie une erreur
 				} else {
 
-					x1 = document.doGetState(name1).getX();
-					y1 = document.doGetState(name1).getY();
-					radius1 = document.doGetState(name1).getRadius();
-					if (document.doGetState(name1).getMode() == Mode.VISIBLE) {
+					x = document.doGetState(name).getX();
+					y = document.doGetState(name).getY();
+					radius = document.doGetState(name).getRadius();
+					if (document.doGetState(name).getMode() == Mode.VISIBLE) {
 
-						mode1 = 1;
+						mode = 1;
 
-					} else if (document.doGetState(name1).getMode() == Mode.HIDDEN) {
-						mode1 = 0;
-					} else if (document.doGetState(name1).getMode() == Mode.OCCUPIED)
-						mode1 = 2;
+					} else if (document.doGetState(name).getMode() == Mode.HIDDEN) {
+						mode = 0;
+					} else if (document.doGetState(name).getMode() == Mode.OCCUPIED)
+						mode = 2;
 
 					// faire une map
-					Map<String, Preference> buffer = document.doGetState(name1)
+					Map<String, Preference> buffer = document.doGetState(name)
 							.getPreferences();
 
-					writer.sendState(name1, x1, y1, mode1, radius1, buffer);
+					writer.sendState(name, x, y, mode, radius, buffer);
 				}
 
 				break;
 
 			case Protocol.REQ_RAD:
-				String name3 = reader.readname();
-				System.out.println(name3);
+				name = reader.readname();
+				System.out.println(name);
 				int rad = reader.readRad();
 				if (rad < 0) {
 					writer.error();
 				} else {
-					document.doChangeRadius(name3, rad);
+					document.doChangeRadius(name, rad);
 					writer.changeOK();
 				}
 
 				break;
 
 			case Protocol.REQ_MOV:
-				String name0 = reader.readname();
+				name = reader.readname();
 				int t[] = reader.readMov();
 				if (t[0] < 0 || t[1] < 0) {
 					writer.error();
 				} else {
-					document.doMove(name0, t[0], t[1]);
+					document.doMove(name, t[0], t[1]);
 					writer.changeOK();
 
 				}
 				break;
 
+			case Protocol.REQ_PROPUPLEV:
+				name = reader.readname();
+				String preference = reader.readPreferenceName();
+				int level = reader.readPreferenceLevel();
+
+				document.doChangePreferenceLevel(name, preference, level);
+				writer.changeOK();
+
+				break;
+
+			case Protocol.REQ_PROPUPVIS:
+				name = reader.readname();
+				preference = reader.readPreferenceName();
+				boolean vis = reader.readPreferenceVis();
+
+				document.doChangePreferenceVisibility(name, preference, vis);
+				writer.changeOK();
+
+				break;
 			/*
 			 * case Protocol.REQ_PREF: String name2 = reader.readname(); if
 			 * (name2 == null) { writer.error(); } else {

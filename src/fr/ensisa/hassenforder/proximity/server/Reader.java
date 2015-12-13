@@ -42,7 +42,6 @@ public class Reader extends BasicAbstractReader {
 
 	public String readname() {
 		String name = readString();
-		System.out.println(name);
 		return name;
 		
 	}
@@ -58,6 +57,21 @@ public class Reader extends BasicAbstractReader {
 	public int readRad(){
 		int radius = readInt();
 		return radius;
+	}
+	
+	public String readPreferenceName(){
+		String pref = readString();
+		return pref;
+	}
+	
+	public int readPreferenceLevel(){
+		int level = readInt();
+		return level;
+	}
+	
+	public boolean readPreferenceVis(){
+		boolean vis = readBoolean();
+		return vis;
 	}
 	
 }
