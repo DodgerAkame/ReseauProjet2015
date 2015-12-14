@@ -25,14 +25,13 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.REQ_MOV :
 			//readMov();
 			break;
-		/*case Protocol.REQ_RAD :
-			readRad();
+		case Protocol.REQ_RAD :
+			
 		case Protocol.REQ_PROPUPVIS :
 			
-		case Protocol.REQ_MODE :
-			
+		case Protocol.REQ_MODE :			
 
-		case Protocol.REQ_PROPUPLEV :*/
+		case Protocol.REQ_PROPUPLEV :
 			
 		default:
 			break;

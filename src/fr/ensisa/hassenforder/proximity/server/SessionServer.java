@@ -145,11 +145,13 @@ public class SessionServer {
 				writer.changeOK();
 				
 				break;
-			/*
-			 * case Protocol.REQ_PREF: String name2 = reader.readname(); if
-			 * (name2 == null) { writer.error(); } else {
-			 * document.doFind(name2); writer.sendFind(); }
-			 */
+			
+			  case Protocol.REQ_PREF:
+				  String name2 = reader.readname(); 
+				  if  (name2 == null) { writer.error(); } else {
+			  document.doFind(name2);
+			  writer.sendFind(document.doFind(name2)); }
+			 
 
 			/*
 			 * default: return false; // connection jammed

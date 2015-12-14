@@ -2,12 +2,14 @@ package fr.ensisa.hassenforder.proximity.server;
 
 import java.io.OutputStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import fr.ensisa.hassenforder.network.BasicAbstractWriter;
 import fr.ensisa.hassenforder.network.Protocol;
 import fr.ensisa.hassenforder.proximity.model.Preference;
+import fr.ensisa.hassenforder.proximity.model.User;
 
 public class Writer extends BasicAbstractWriter {
 
@@ -51,8 +53,10 @@ public class Writer extends BasicAbstractWriter {
 
 	}
 
-	public void sendFind() {
+	public void sendFind(List<User> list) {
 		writeInt(Protocol.REP_USERS); //tiens je te prémâche le boulot
+		int size = list.size();
+		System.out.println(size);
 	}
 
 	public void send() {
