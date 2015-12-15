@@ -16,6 +16,7 @@ public class SessionClient {
 
 	private Socket connection;
 	private User me;
+	private List<User> others;
 
 	public SessionClient(Socket connection) {
 		this.connection = connection;
@@ -152,8 +153,40 @@ public class SessionClient {
 
 			if (reader.getType() == Protocol.REP_USERS) {
 				List<User> users = null;
-				// Réception à faire
 
+				int size = reader.readSize();
+
+				for (int i = 0; i < size; i++) {
+
+					User user = null;
+					Map<String, Preference> pref = null;
+
+					user = reader.readUser();
+					pref = reader.readPreferences();
+
+					Iterator entries = pref.entrySet().iterator();
+
+					while (entries.hasNext()) {
+
+						String bonjour = entries.next().toString();
+
+						StringTokenizer st = new StringTokenizer(bonjour, "=");
+
+						String hobby = "";
+						int level = 0;
+						boolean vis = false;
+
+						Preference buffer = new Preference(hobby, level, vis);
+
+						buffer = pref.get(st.nextToken());
+
+						user.addPreference(buffer);
+
+					}
+
+					users.add(user);
+
+				}
 				return users;
 			}
 
@@ -167,7 +200,7 @@ public class SessionClient {
 		try {
 
 			Writer writer = new Writer(connection.getOutputStream());
-			writer.updateMode(name,mode);
+			writer.updateMode(name, mode);
 			writer.send();
 
 			Reader reader = new Reader(connection.getInputStream());
@@ -176,7 +209,7 @@ public class SessionClient {
 			if (reader.getType() == Protocol.REP_KO)
 				throw new IOException("Request aborted");
 			if (reader.getType() == Protocol.REP_OK) {
-				
+
 				me.setMode(mode);
 
 				return true;
@@ -239,12 +272,11 @@ public class SessionClient {
 		}
 	}
 
-	public boolean changePreferenceLevel(String name, String preference,
-			int value) {
+	public boolean changePreferenceLevel(String name, String preference, int value) {
 		try {
 
 			Writer writer = new Writer(connection.getOutputStream());
-			writer.updatePreferenceLevel(name,preference, value);
+			writer.updatePreferenceLevel(name, preference, value);
 			writer.send();
 
 			Reader reader = new Reader(connection.getInputStream());
@@ -252,12 +284,11 @@ public class SessionClient {
 
 			if (reader.getType() == Protocol.REP_KO)
 				throw new IOException("Request update level aborted");
-			
-			if (reader.getType() == Protocol.REP_OK){
-				
+
+			if (reader.getType() == Protocol.REP_OK) {
+
 				me.getPreferenceByName(preference).setLevel(value);
-				
-				
+
 				return true;
 			}
 			return false;
@@ -266,8 +297,7 @@ public class SessionClient {
 		}
 	}
 
-	public boolean changePreferenceVisibility(String name, String preference,
-			boolean visibility) {
+	public boolean changePreferenceVisibility(String name, String preference, boolean visibility) {
 		try {
 			Writer writer = new Writer(connection.getOutputStream());
 			writer.updatePreferenceVisibility(name, preference, visibility);
@@ -278,12 +308,11 @@ public class SessionClient {
 
 			if (reader.getType() == Protocol.REP_KO)
 				throw new IOException("Request update visibility aborted");
-			
-			if (reader.getType() == Protocol.REP_OK){
-				
+
+			if (reader.getType() == Protocol.REP_OK) {
+
 				me.getPreferenceByName(preference).setVisibility(visibility);
-				
-				
+
 				return true;
 			}
 			return false;

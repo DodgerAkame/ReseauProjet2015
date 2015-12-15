@@ -106,4 +106,9 @@ public class Reader extends BasicAbstractReader {
 		return buffer;
 	}
 
+	public int readSize(){
+		int size = readInt();
+		return size;
+	}
+	
 }
