@@ -55,11 +55,9 @@ public class Writer extends BasicAbstractWriter {
 	public void sendFind(List<User> list) {
 		writeInt(Protocol.REP_USERS); // tiens je te prémâche le boulot
 		int size = list.size();
-		System.out.println(size);
 		writeInt(size);
 		for (int i = 0; i < size; i++) {
 			String name = list.get(i).getName();
-			System.out.println(name);
 			int x = list.get(i).getX();
 			int y = list.get(i).getY();
 			int radius = list.get(i).getRadius();
@@ -87,6 +85,7 @@ public class Writer extends BasicAbstractWriter {
 			writeInt(radius);
 			writeInt(mode);
 
+			writeInt(buffer.size());
 			Iterator entries = buffer.entrySet().iterator();
 			while (entries.hasNext()) {
 				Map.Entry entry = (Map.Entry) entries.next();

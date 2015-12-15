@@ -2,6 +2,7 @@ package fr.ensisa.hassenforder.proximity.client;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -152,15 +153,17 @@ public class SessionClient {
 				throw new IOException("Request aborted");
 
 			if (reader.getType() == Protocol.REP_USERS) {
-				List<User> users = null;
+				List<User> users = new ArrayList<User>();
 
-				int size = reader.readSize();
+				int sizelist = reader.readSize();
 
-				for (int i = 0; i < size; i++) {
+				for (int i = 0; i < sizelist; i++) {
 
 					User user = null;
 					Map<String, Preference> pref = null;
 
+					
+					
 					user = reader.readUser();
 					pref = reader.readPreferences();
 
@@ -187,6 +190,7 @@ public class SessionClient {
 					users.add(user);
 
 				}
+				this.others = users;
 				return users;
 			}
 

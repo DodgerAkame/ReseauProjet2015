@@ -62,29 +62,6 @@ public class Reader extends BasicAbstractReader {
 		return user;
 	}
 
-	public List<User> readOthers() {
-		List<User> users = null;
-		return users;
-	}
-
-	public List<User> readOthers(int size) {
-		List<User> users = null;
-
-		for (int i = 0; i < size; i++) {
-			String name = readString();
-			int x = readInt();
-			int y = readInt();
-			int radius = readInt();
-			String modestring = readString();
-			Mode mode = Mode.valueOf(modestring);
-
-			User temp = new User(name, x, y, radius, mode);
-
-			users.add(i, temp);
-		}
-
-		return users;
-	}
 
 	public Map<String, Preference> readPreferences() {
 		Map<String, Preference> buffer = new HashMap<String, Preference>();
@@ -106,9 +83,21 @@ public class Reader extends BasicAbstractReader {
 		return buffer;
 	}
 
-	public int readSize(){
+	public int readSize() {
 		int size = readInt();
 		return size;
 	}
-	
+
+	/*
+	 * public User readFind(){ int x,y,radius,mode; String name; boolean vis;
+	 * Mode modeEnum;
+	 * 
+	 * 
+	 * 
+	 * User user = new User(name, x, y, radius, mode);
+	 * 
+	 * 
+	 * return user; }
+	 */
+
 }

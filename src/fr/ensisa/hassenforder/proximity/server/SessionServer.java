@@ -64,7 +64,7 @@ public class SessionServer {
 
 			case Protocol.GET_USER:
 				mode = 0;
-				
+
 				name = reader.readname();
 
 				if (document.doConnect(name) == null) {
@@ -83,7 +83,6 @@ public class SessionServer {
 					} else if (document.doGetState(name).getMode() == Mode.OCCUPIED)
 						mode = 2;
 
-					
 					Map<String, Preference> buffer = document.doGetState(name)
 							.getPreferences();
 
@@ -136,22 +135,25 @@ public class SessionServer {
 				writer.changeOK();
 
 				break;
-				
+
 			case Protocol.REQ_MODE:
 				name = reader.readname();
 				Mode modeenum = reader.readMode();
-				
+
 				document.doChangeMode(name, modeenum);
 				writer.changeOK();
-				
+
 				break;
-			
-			  case Protocol.REQ_PREF:
-				  name = reader.readname();
-				  if  (name == null) { writer.error(); } else {
-			  document.doFind(name);
-			  writer.sendFind(document.doFind(name)); }
-				 break;
+
+			case Protocol.REQ_PREF:
+				name = reader.readname();
+				if (name == null) {
+					writer.error();
+				} else {
+					//document.doFind(name);
+					writer.sendFind(document.doFind(name));
+				}
+				break;
 
 			/*
 			 * default: return false; // connection jammed
